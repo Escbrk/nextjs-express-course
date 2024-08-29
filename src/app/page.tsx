@@ -1,22 +1,24 @@
-import Image from "next/image";
 import styles from "./page.module.css";
-import cousre from "./course.json";
+import dynamic from "next/dynamic";
 
-export default function Home() {
+
+
+const ClientComponent = dynamic(() => import("./some-component"), {
+  ssr: false,
+});
+
+export default async function Home() {
   return (
     <main className={styles.main}>
-      <ul>
-        {cousre.lessons.map((lesson) => (
+      <h1>React</h1>
+      <ClientComponent />
+      {/* <ul>
+        {courses.lessons.map((lesson) => (
           <li key={lesson.name}>
-            <h2 style={{ marginTop: "10px" }}>{lesson.title} </h2>
-            <ul>
-              {lesson.points.map((point, i) => (
-                <li key={i}>{point}</li>
-              ))}
-            </ul>
+            <Lesson title={lesson.title} points={lesson.points} />
           </li>
         ))}
-      </ul>
+      </ul> */}
     </main>
   );
 }
